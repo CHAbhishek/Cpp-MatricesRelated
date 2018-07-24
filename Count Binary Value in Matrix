@@ -1,0 +1,49 @@
+#include <iostream>
+ 
+using namespace std;
+int bin[200],ii=0,m;
+int binary(int nn)
+{
+    if(nn==0) return 0;
+    else {
+        binary(nn/2);
+        bin[ii++]=nn%2;
+    }
+}
+int main(int argc, char** argv)
+{
+int row,col,i,j,n,k=0,pc=0,count=0;
+cin>>row>>col;
+int a[row+1][col+1];
+for(i=1;i<=row;i++)
+{
+    for(j=1;j<=col;j++)
+    {
+        cin>>a[i][j];
+    }
+}
+cin>>n;
+binary(n);
+k=ii;
+//cout<<k;
+for(i=1;i<=row;i++)
+{
+    for(j=1;j<=col;j++,count=0)
+    {
+        for(m=0;m<k && (j+m)<=col;m++)
+        {
+            if(a[i][j+m]==bin[m]){
+                count++;
+            }
+        }
+        if(count==k) pc++;
+        count=0;
+        for(m=0;m<k && (i+m)<=row;m++)
+        {
+            if(a[i+m][j]==bin[m]) count++;        
+           }
+        if(count==k) pc++;
+    }
+}
+cout<<pc;
+}
