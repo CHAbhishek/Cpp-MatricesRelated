@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+int ar[50],a[50][50],n,count=0,k=0;
+int InAr(int x,int y);
+void getsubmatrix(int ii,int jj,int flag,int limit);
+void getsubmatrix(int ii,int jj,int flag,int limit){
+    int i,j,kk;
+    for(i=ii;i<ii+limit;i++)
+    {
+        for(j=jj-1;j<jj+limit-1;j++)
+        {
+            if(flag==0)
+          ar[k++]=a[i][j];
+           else 
+           {
+               int h=a[i][j];
+               kk=InAr(h,k);
+               if(kk==1) count++;
+           }
+        }
+    }
+}
+int InAr(int x,int y)
+{
+    int i;
+    for(i=0;i<y;i++)
+    {
+        if(ar[i]==x)
+        {
+        ar[i]=-1;
+        return 1;
+        }
+    }
+    return 0;}
+int main(int argc, char** argv)
+{
+int i,j;
+cin>>n;
+for(i=0;i<n;i++)
+    for(j=0;j<n;j++)
+        cin>>a[i][j];
+if(n%2==0)
+{
+    getsubmatrix(0,n/2+1,0,n/2);
+    getsubmatrix(n/2,1,1,n/2);
+}
+else {   
+    getsubmatrix(0,n/2+1,0,n/2+1);
+    getsubmatrix(n/2,1,1,n/2+1);
+}
+cout<<count;
+}
